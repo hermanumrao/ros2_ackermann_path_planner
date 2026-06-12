@@ -5,10 +5,12 @@
 #include <nav_msgs/msg/occupancy_grid.hpp>
 #include <nav_msgs/msg/path.hpp>
 
+#include "hybrid_astar_planner/collision_checker.hpp"
+#include "hybrid_astar_planner/hybrid_astar.hpp"
+#include "hybrid_astar_planner/map_processor.hpp"
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/pose_with_covariance_stamped.hpp>
-
-#include "hybrid_astar_planner/map_processor.hpp"
+#include <nav_msgs/msg/odometry.hpp>
 
 class PlannerNode : public rclcpp::Node {
 public:
@@ -17,8 +19,9 @@ public:
 private:
   void mapCallback(const nav_msgs::msg::OccupancyGrid::SharedPtr msg);
 
-  void initialPoseCallback(
-      const geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg);
+  // void initialPoseCallback(
+  //     const geometry_msgs::msg::PoseWithCovarianceStamped::SharedPtr msg);
+  void odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg);
 
   void goalPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg);
 
@@ -26,8 +29,10 @@ private:
 
   rclcpp::Subscription<nav_msgs::msg::OccupancyGrid>::SharedPtr map_sub_;
 
-  rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr
-      initial_sub_;
+  // rclcpp::Subscription<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr
+  // initial_sub_;
+  //
+  rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
 
   rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr goal_sub_;
 
@@ -41,6 +46,8 @@ private:
   geometry_msgs::msg::PoseStamped goal_pose_;
 
   MapProcessor map_processor_;
+  CollisionChecker collision_checker_;
+  HybridAStar planner_;
 
   bool has_map_ = false;
   bool has_start_ = false;

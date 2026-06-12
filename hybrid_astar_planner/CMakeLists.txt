@@ -13,11 +13,13 @@ find_package(geometry_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 include_directories(include)
 
-add_executable(planner_node src/main.cpp src/planner_node.cpp
-                            src/map_processor.cpp)
+add_executable(
+  planner_node src/main.cpp src/planner_node.cpp src/map_processor.cpp
+               src/collision_checker.cpp src/hybrid_astar.cpp)
 
 ament_target_dependencies(
   planner_node
@@ -26,7 +28,8 @@ ament_target_dependencies(
   geometry_msgs
   tf2
   tf2_ros
-  visualization_msgs)
+  visualization_msgs
+  tf2_geometry_msgs)
 
 install(TARGETS planner_node DESTINATION lib/${PROJECT_NAME})
 
