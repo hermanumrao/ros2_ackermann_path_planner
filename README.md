@@ -135,18 +135,6 @@ ros2 run ros2_ackermann_keyboard_teleop teleop_node
 
 Each package has its own `README.md` and `install.md` with full build instructions and wiring diagrams — refer to those for package-specific setup.
 
-### Version Compatibility
-
-**[VERIFY / TODO]** If these packages must be checked out at specific tags or commits to interoperate correctly, list that here, e.g.:
-
-| Package | Required version/tag |
-|---|---|
-| `ROS2_pcd_to_occupancy_grid` | — |
-| `Reloc3D-ROS2_V1` | — |
-| `ros2_ackermann_path_planner` | — |
-| `ros2_ackermann_to_motor` | — |
-| `ros2_ackermann_motor_ctrl` | — |
-| `ros2_ackermann_keyboard_teleop` | — |
 
 ---
 
